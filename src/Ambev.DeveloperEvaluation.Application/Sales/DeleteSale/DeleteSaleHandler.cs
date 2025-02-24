@@ -23,7 +23,7 @@ public class DeleteSaleHandler : IRequestHandler<DeleteSaleCommand, DeleteSaleRe
 
         var success = await _salesRepository.DeleteAsync(request.Id, cancellationToken);
         if (!success)
-            throw new KeyNotFoundException($"Sale with ID {request.Id} not found");
+            return new DeleteSaleResult { Success = false };
 
         return new DeleteSaleResult { Success = true };
     }

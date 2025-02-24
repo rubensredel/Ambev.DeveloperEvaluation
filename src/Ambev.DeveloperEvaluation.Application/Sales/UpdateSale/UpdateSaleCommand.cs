@@ -2,7 +2,7 @@
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 
-public class UpdateSaleCommand : IRequest<UpdateSaleResult>
+public class UpdateSaleCommand : IRequest<UpdateSaleResponse>
 {
     public Guid Id { get; set; }
     public string Customer { get; set; } = string.Empty;

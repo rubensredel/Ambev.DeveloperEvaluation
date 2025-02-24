@@ -5,8 +5,8 @@ using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.GetAllSales;
 
-public class GetAllSalesCommand : IRequest<PaginatedResult<GetSaleResult>>, IPageQuery
+public record GetAllSalesCommand(int Page, int PageSize) : IRequest<PaginatedResponse<GetSaleResponse>>, IPageQuery
 {
-    public int Page { get; set; }
-    public int PageSize { get; set; }
+    public int Page { get; } = Page;
+    public int PageSize { get; } = PageSize;
 }

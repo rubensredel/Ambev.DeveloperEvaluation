@@ -6,20 +6,11 @@ using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.GetAllSales;
 
-public class GetAllSalesHandler : IRequestHandler<GetAllSalesCommand, PaginatedResult<GetSaleResult>>
+public class GetAllSalesHandler(ISalesRepository salesRepository, IMapper mapper) : IRequestHandler<GetAllSalesCommand, PaginatedResponse<GetSaleResponse>>
 {
-    private readonly IMapper _mapper;
-    private readonly ISalesRepository _salesRepository;
-
-    public GetAllSalesHandler(ISalesRepository salesRepository, IMapper mapper)
+    public async Task<PaginatedResponse<GetSaleResponse>> Handle(GetAllSalesCommand request, CancellationToken cancellationToken)
     {
-        _mapper = mapper;
-        _salesRepository = salesRepository;
-    }
-
-    public async Task<PaginatedResult<GetSaleResult>> Handle(GetAllSalesCommand request, CancellationToken cancellationToken)
-    {
-        var sales = await _salesRepository.GetAllAsync(request);
-        return _mapper.Map<PaginatedResult<GetSaleResult>>(sales);
+        var sales = await salesRepository.GetAllAsync(request);
+        return mapper.Map<PaginatedResponse<GetSaleResponse>>(sales);
     }
 }

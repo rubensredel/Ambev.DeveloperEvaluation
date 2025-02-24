@@ -6,35 +6,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories;
 
-public class SalesRepository : ISalesRepository
+public class SalesRepository(DefaultContext context) : ISalesRepository
 {
-    private readonly DefaultContext _context;
-
-    public SalesRepository(DefaultContext context)
+    public async Task<PaginatedResponse<Sales>> GetAllAsync(IPageQuery pageQuery)
     {
-        _context = context;
-    }
-
-    public async Task<PaginatedResult<Sales>> GetAllAsync(IPageQuery pageQuery)
-    {
-        return await _context.Sales.AsNoTracking().Include(x => x.Items).AsQueryable().PaginateAsync(pageQuery);
+        return await context.Sales.AsNoTracking().Include(x => x.Items).AsQueryable().PaginateAsync(pageQuery);
     }
 
     public async Task<Sales> CreateAsync(Sales sales, CancellationToken cancellationToken = default)
     {
-        await _context.Sales.AddAsync(sales, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
+        await context.Sales.AddAsync(sales, cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
         return sales;
     }
 
     public async Task<Sales?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await _context.Sales.AsNoTracking().Include(x => x.Items).FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+        return await context.Sales.AsNoTracking().Include(x => x.Items).FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     public async Task<Sales?> GetByNumberAsync(int number, CancellationToken cancellationToken = default)
     {
-        return await _context.Sales.AsNoTracking().Include(x => x.Items).FirstOrDefaultAsync(o => o.Number == number, cancellationToken);
+        return await context.Sales.AsNoTracking().Include(x => x.Items).FirstOrDefaultAsync(o => o.Number == number, cancellationToken);
     }
 
     public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
@@ -43,15 +36,15 @@ public class SalesRepository : ISalesRepository
         if (sale == null)
             return false;
 
-        _context.Sales.Remove(sale);
-        await _context.SaveChangesAsync(cancellationToken);
+        context.Sales.Remove(sale);
+        await context.SaveChangesAsync(cancellationToken);
         return true;
     }
 
     public async Task<bool> UpdateAsync(Sales sales, CancellationToken cancellationToken = default)
     {
-        _context.Sales.Update(sales);
-        await _context.SaveChangesAsync(cancellationToken);
+        context.Sales.Update(sales);
+        await context.SaveChangesAsync(cancellationToken);
         return true;
     }
 }

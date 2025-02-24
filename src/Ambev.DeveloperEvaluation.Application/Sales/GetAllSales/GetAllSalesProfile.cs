@@ -8,6 +8,6 @@ public class GetAllSalesProfile : Profile
 {
     public GetAllSalesProfile()
     {
-        CreateMap<PaginatedResult<Domain.Entities.Sales>, PaginatedResult<GetSaleResult>>();
+        CreateMap<PaginatedResponse<Domain.Entities.Sales>, PaginatedResponse<GetSaleResponse>>();
     }
 }

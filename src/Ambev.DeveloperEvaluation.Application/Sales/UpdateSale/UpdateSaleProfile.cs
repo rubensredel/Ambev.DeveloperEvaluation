@@ -8,7 +8,7 @@ public class UpdateSaleProfile : Profile
     {
         CreateMap<UpdateSaleCommand, Domain.Entities.Sales>();
         CreateMap<UpdateSaleItemCommand, Domain.Entities.SalesItem>();
-        CreateMap<Domain.Entities.Sales, UpdateSaleResult>();
-        CreateMap<Domain.Entities.SalesItem, UpdateSaleItemResult>();
+        CreateMap<Domain.Entities.Sales, UpdateSaleResponse>();
+        CreateMap<Domain.Entities.SalesItem, UpdateSaleItemResponse>();
     }
 }

@@ -8,7 +8,7 @@ public class CreateSaleProfile : Profile
     {   
         CreateMap<CreateSaleCommand, Domain.Entities.Sales>();
         CreateMap<CreateSaleItemCommand, Domain.Entities.SalesItem>();
-        CreateMap<Domain.Entities.Sales, CreateSaleResult>();
-        CreateMap<Domain.Entities.SalesItem, CreateSaleItemResult>();
+        CreateMap<Domain.Entities.Sales, CreateSaleResponse>();
+        CreateMap<Domain.Entities.SalesItem, CreateSaleItemResponse>();
     }
 }
