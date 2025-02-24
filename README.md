@@ -15,7 +15,7 @@ Após que, deve-se iniciar o container utilizando o comando
 Todas as tabelas serão criadas automaticamente e todos os serviços estarão inicializados dentro de um container. Os serviços que serão inicializados são:
 
 1. Api
-2. Banco Postgress
+2. Banco Postgres
 3. Banco Mongo
 4. Redis
 
